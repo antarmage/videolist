@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="input-field col s12">
+    <input id="username" #username type="text" class="validate">
+    <label for="username">user name</label>
+  </div>
+</div>
+<div class="row">
+  <div class="input-field col s12">
+    <input id="password" #password type="password" class="validate">
+    <label for="password">password</label>
+  </div>
+</div>
+<a class="waves-effect waves-light btn-large" (click)="userAuthenticate(username.value,password.value)">Login</a>
