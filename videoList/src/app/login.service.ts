@@ -63,7 +63,7 @@ export class LoginService {
           videoList.push(responseModel);
         });
         this.videoListSub.next(videoList);
-         this.router.navigate(['/videos']);
+        this.router.navigate(['/videos']);
       }
     });
   }

@@ -8,11 +8,11 @@ import{videoListModel}from '../model/videoList.model';
   styleUrls: ['./video-dumb.component.css']
 })
 export class VideoDumbComponent implements OnInit {
-@Input() videolist: videoListModel[];
+  @Input() videolist: videoListModel[];
   constructor(private loginservice:LoginService) { }
 
   ngOnInit() {
-    
+  console.log('dumb'+this.videolist);
   }
 
 }

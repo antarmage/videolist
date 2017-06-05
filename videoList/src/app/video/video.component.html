@@ -1,4 +1,7 @@
 <p>
   video works!
 </p>
-<app-video-dumb [videolist]="videoForList"></app-video-dumb>
+ <div class="row parent">
+<app-video-dumb [videolist]="item" *ngFor="let item of  videoForList$|async" class="maintain-grid"></app-video-dumb>
+
+ </div>
