@@ -19,5 +19,6 @@ export class VideoComponent implements OnInit {
    
    console.log(this.videoForList$);
   }
+  
 
 }

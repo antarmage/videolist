@@ -14,9 +14,13 @@ export class LoginService {
   sessionId:string;
   private videoListSub: BehaviorSubject<videoListModel[]>; 
   public videoList$: Observable<videoListModel[]>;
+  private videoDetailSub:BehaviorSubject<any>;
+  public videoDetail$:Observable<any>;
   constructor(private router: Router, private http: Http) {
     this.videoListSub = new BehaviorSubject([]);
+    this.videoDetailSub = new BehaviorSubject([]);
     this.videoList$ = this.videoListSub.asObservable();
+    this.videoDetail$ = this.videoDetailSub.asObservable();
   }
 
   //get user details
@@ -40,25 +44,28 @@ export class LoginService {
           console.log(err);
         });
   }
+
   //post call
   postAuthcall(resp){
     localStorage.setItem('currentUser', JSON.stringify(resp));
         console.log(localStorage.getItem('currentUser'));
         this.redirection();
   }
+
   //video url redirection
   redirection(){
     this.getvideolist();
   }
+
   //video list service calls
   getvideolist(){
     let requestparam = '/videos'+ '?sessionId=' + this.sessionId;
     this.http.get(`${this.baseUrl}${requestparam}`).subscribe(data=>{
       let response = data.json();
-      console.log(response.data);
       let responseModel,videoList=[];
       if(response.status==='success'){
         response.data.forEach(videolists => {
+          videolists.ratingTotal=this.calculateRating(videolists.ratings);
           responseModel = new videoListModel(videolists);
           videoList.push(responseModel);
         });
@@ -66,5 +73,41 @@ export class LoginService {
         this.router.navigate(['/videos']);
       }
     });
+  }
+
+  //calculate ratings
+  calculateRating(ratings){
+    let ratingSum=0;
+    ratings.forEach((elements)=>{
+      ratingSum+=elements;
+    });
+    return ratingSum/ratings.length;
+  }
+
+  //user logout
+  userLogout(){
+    let requestparam="/user/logout"+ '?sessionId='+ this.sessionId;
+    this.http.get(`${this.baseUrl}${requestparam}`).subscribe((data) => {
+      localStorage.removeItem('currentUser');
+      this.router.navigate(['/login']);
+    });
+  }
+
+  //video Details
+  videoDetailsList(videoId){
+    let requestparam="/video"+ '?sessionId='+ this.sessionId+'&videoId=' + videoId;
+    this.http.get(`${this.baseUrl}${requestparam}`).subscribe((data) => {
+    });
+  }
+  getVideoDetails(videoId){
+   let requestparam="/video"+ '?sessionId='+ this.sessionId+'&videoId=' + videoId;
+   let videoDetailsData;
+    this.http.get(`${this.baseUrl}${requestparam}`).subscribe((data) => {
+  videoDetailsData=data;
+  console.log(videoDetailsData);
+});
+this.videoDetailSub.next(videoDetailsData);
+    console.log('get video detail triggered '+videoId);
+    return this.videoDetail$;
   }
 }

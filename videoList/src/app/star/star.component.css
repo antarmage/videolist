@@ -1,0 +1,10 @@
+.activeStar{
+    color:yellow;
+    
+}.partialStar{
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+}
+i.inactiveStar.material-icons.star {
+    color: #ededed;
+}

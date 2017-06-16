@@ -3,13 +3,15 @@ export class videoListModel{
     name: string;
     description:string;
     url:string;
-    ratings:[''];
+    ratings:[number];
+    ratingTotal:number;
 
     constructor(response){
         this._id= response._id,
         this.name= response.name,
         this.description=response.description,
         this.url=response.url,
-        this.ratings=null
+        this.ratings=response.ratings,
+        this.ratingTotal=response.ratingTotal
     }
 }

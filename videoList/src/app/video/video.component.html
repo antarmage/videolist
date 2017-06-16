@@ -1,7 +1,11 @@
+<app-nav></app-nav>
+<div class="container">
 <p>
   video works!
 </p>
- <div class="row parent">
-<app-video-dumb [videolist]="item" *ngFor="let item of  videoForList$|async" class="maintain-grid"></app-video-dumb>
+ <div class="row parent flex-parent">
+<app-video-dumb [videolist]="item" *ngFor="let item of  videoForList$|async let i = index; let firstItem = first; let lastItem = last" [ngClass]="{ lastitem: lastItem }" class="maintain-grid col s3 center card-panel ld{{i%4}}">
+</app-video-dumb>
 
  </div>
+</div>

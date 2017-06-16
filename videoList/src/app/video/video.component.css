@@ -3,3 +3,13 @@ clear: both;
 content: '';
 display: block;
 }
+.flex-parent{
+    display: flex;
+    flex-flow: row wrap;
+}
+.maintain-grid:nth-child(4n){
+   
+}
+.maintain-grid.lastitem.ld1{
+margin-right: 50%;
+}
