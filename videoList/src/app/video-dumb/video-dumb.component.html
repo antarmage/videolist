@@ -1,11 +1,11 @@
 <div class="" id="{{videolist.id}}">
   <h6><a class="video-title" (click)="videoDetails(videolist)">{{videolist.name}}</a></h6>
   <div class="video-wrapper">
-  <video id="{{videolist._id}}" class="responsive-video" width="100%" height="100%">
+  <video id="{{videolist._id}}" class="responsive-video" width="100%" height="100%" controls>
     <source src="http://localhost:27017/{{videolist.url}}" type="video/mp4">
   </video>
   </div>
 <app-star [ratingslist]="videolist.ratingTotal"></app-star>
 <span>{{videolist.ratingTotal}}</span>
-<p class="truncate">{{videolist.description}}</p>
+<p [class.truncate]="videolist.truncate==true" >{{videolist.description}}</p>
 </div>

@@ -14,10 +14,7 @@ export class VideoComponent implements OnInit {
   constructor(private loginservice:LoginService) { }
 
   ngOnInit() {
-   console.log('video smart component');
    this.videoForList$= this.loginservice.videoList$;
-   
-   console.log(this.videoForList$);
   }
   
 

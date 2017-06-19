@@ -14,9 +14,9 @@ export class VideoDumbComponent implements OnInit {
   constructor(private loginservice: LoginService, private router: Router) { }
 
   ngOnInit() {
-    console.log('dumb' + this.videolist);
   }
   videoDetails(videolist) {
+    console.log('videolist',videolist);
     this.router.navigate(['/video-details', videolist._id]);
   }
 

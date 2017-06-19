@@ -1,1 +1,1 @@
-<span  *ngFor="let item of classRating"><i  [ngStyle]="{'background': item.backgroundColorValue}"class="{{item.className}} material-icons star">star</i></span>
+<span  *ngFor="let item of ratingStar$|async let i = index; let firstItem = first; let lastItem = last" (mouseleave)="onmouseOutMethod($event)" (mouseenter)="onHoverMethod(i)" ><i  [ngStyle]="{'background': item.backgroundColorValue}" class="{{item.className}} material-icons star">star</i></span>

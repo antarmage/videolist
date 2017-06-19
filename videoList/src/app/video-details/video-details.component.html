@@ -1,5 +1,13 @@
-<p>
-  video-details works!
-</p>
-<div class=""></div>
-<div class=""></div>
+<app-nav></app-nav>
+<div class="container">
+  <div class="row parent flex-parent">
+    <div class="col s9">
+    <app-video-dumb [videolist]="item" *ngFor="let item of  rawbobject" class="maintain-grid col card-panel">
+    </app-video-dumb>
+    </div>
+    <div class="col s3">
+      <app-video-dumb [videolist]="item" *ngFor="let item of  videoForList$|async | slice:0:2" class="maintain-grid col s12 center card-panel">
+  </app-video-dumb>
+    </div>
+  </div>
+</div>

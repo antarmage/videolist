@@ -5,6 +5,7 @@ export class videoListModel{
     url:string;
     ratings:[number];
     ratingTotal:number;
+    truncate:boolean;
 
     constructor(response){
         this._id= response._id,
@@ -12,6 +13,7 @@ export class videoListModel{
         this.description=response.description,
         this.url=response.url,
         this.ratings=response.ratings,
-        this.ratingTotal=response.ratingTotal
+        this.ratingTotal=response.ratingTotal,
+        this.truncate=response.truncate
     }
 }

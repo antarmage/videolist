@@ -1,7 +1,8 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,HostListener } from '@angular/core';
+import { Observable,BehaviorSubject } from 'rxjs';
 import{LoginService} from '../login.service';
 import{videoListModel}from '../model/videoList.model';
-import{StarModel}from '../model/star.model'
+import{StarModel}from '../model/star.model';
 @Component({
   selector: 'app-star',
   templateUrl: './star.component.html',
@@ -11,16 +12,19 @@ export class StarComponent implements OnInit {
   @Input() ratingslist:number;
   @Input() classRatingModel:StarModel[];
   @Input() classRating:[StarModel];
+  public ratingStarSub:BehaviorSubject<StarModel[]>;
+  private ratingStar$:Observable<StarModel[]>;
   constructor(private loginservice:LoginService) { 
     //this.classRating = null;
     this.classRating=[{
       className:'',
       backgroundColorValue:''
      }];
+     this.ratingStarSub = new BehaviorSubject([]);
+    this.ratingStar$ = this.ratingStarSub.asObservable();
   }
 
   ngOnInit() {
-    console.log('from star component'+ this.ratingslist);
     this.repeatstars();
   }
 repeatstars(){
@@ -40,6 +44,8 @@ repeatstars(){
        starModel=new StarModel('activeStar',classProperty);
        this.classRating.push(starModel); 
      }
+      
+     
   }
   for (let remaining=5-this.ratingslist;remaining>1;remaining--){
     let classProperty;
@@ -47,6 +53,24 @@ repeatstars(){
        starModel=new StarModel('inactiveStar',classProperty);
        this.classRating.push(starModel); 
   }
-  return this.classRating.splice(0,1);
+  this.classRating.splice(0,1);
+  this.ratingStarSub.next(this.classRating);
+ 
+}
+onHoverMethod(index){
+let starModel;
+for(let i=0;i<=index;i++){
+    let remain = 0,initial=0,actualvalue=0,classProperty;
+      classProperty = 'transparent';
+       starModel=new StarModel('activeStar',classProperty);
+       this.classRating[i]=starModel;
+  }
+  this.ratingStarSub.next(this.classRating);
+}
+@HostListener('mouseleave') onmouseOutMethod(event){
+this.classRating.length=0;
+this.ratingStarSub.next(this.classRating);
+console.log(this.classRating.length);
+this.repeatstars();
 }
 }
